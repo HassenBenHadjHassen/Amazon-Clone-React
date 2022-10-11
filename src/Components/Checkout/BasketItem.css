@@ -1,0 +1,39 @@
+.basketItem {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.basketItem__image {
+    object-fit: contain;
+    width: 180px;
+    height: 180px;
+}
+
+.basketItem__info {
+    padding-left: 20px;
+}
+
+.basketItem__info > button {
+  background-color: #ffd814;
+  border: none;
+  margin-top: 10px;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  border-radius: 4px;
+}
+
+.basketItem__info > button:hover {
+  background: #f7ca00;
+  border-color: #f2c200;
+  box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
+}
+
+.basketItem__title {
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.basketItem__rating {
+    display: flex;
+}
