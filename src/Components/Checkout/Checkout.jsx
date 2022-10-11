@@ -5,6 +5,7 @@ import "./Checkout.css";
 import { useStateValue } from "../../StateProvider";
 import Subtotal from "./Subtotal";
 import BasketItem from "./BasketItem";
+//import FlipMove from "react-flip-move";
 
 function Checkout() {
   // eslint-disable-next-line no-unused-vars
@@ -24,15 +25,18 @@ function Checkout() {
         <div>
           <h2 className="checkout__title">Your shopping Basket</h2>
           {/* Basket Item */}
+          {/*<FlipMove>*/}
           {basket.map(({ id, title, price, rating, src }) => (
             <BasketItem
               id={id}
+              key={id}
               title={title}
               price={price}
               rating={rating}
               src={src}
             />
           ))}
+          {/* </FlipMove> */}
         </div>
       </div>
 
