@@ -67,7 +67,7 @@ function Login() {
 
       <div className="login__container">
         <h1>Sign in</h1>
-        <form action="">
+        <form>
           <h5>E-mail</h5>
           <input
             type="email"

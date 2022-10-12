@@ -1,11 +1,23 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./Product.css";
 import { useStateValue } from "../../StateProvider.js";
 
 //Components
 import Rating from "@mui/material/Rating";
 
-function Product({ id, title, price, rating, src }) {
+//Notifications
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+
+const Product = forwardRef(({ id, title, price, rating, src }, ref) => {
+  const notyf = new Notyf({
+    duration: 4000,
+    position: {
+      x: "right",
+      y: "top",
+    },
+  });
+
   // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
 
@@ -20,10 +32,16 @@ function Product({ id, title, price, rating, src }) {
         src: src,
       },
     });
+
+    notyf.success({
+      message: `${title} has been successfuly added to basket`,
+      dismissible: true,
+      ripple: true,
+    });
   }
 
   return (
-    <div className="product">
+    <div className="product" ref={ref}>
       <div className="product__info">
         <p>{title}</p>
         <p className="product__price">
@@ -46,6 +64,6 @@ function Product({ id, title, price, rating, src }) {
       <button onClick={addToBasket}>Add To Basket</button>
     </div>
   );
-}
+});
 
 export default Product;

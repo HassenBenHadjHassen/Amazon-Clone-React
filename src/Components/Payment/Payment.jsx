@@ -25,6 +25,7 @@ function Payment() {
   const [disabled, setDisabled] = useState(true);
   const [succeded, setSucceded] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+  const [address, setAddress] = useState([]);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -43,6 +44,26 @@ function Payment() {
 
     getClientSecret();
   }, [basket]);
+
+  useEffect(() => {
+    if (user) {
+      db.collection("users")
+        .doc(user?.uid)
+        .collection("Address")
+        .onSnapshot((snapshot) => {
+          setAddress(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              data: doc.data(),
+            }))
+          );
+        });
+    } else {
+      setAddress([]);
+    }
+  }, [user]);
+
+  console.log(address);
 
   async function handleSubmit(event) {
     //Do fancy stripe shiiit
@@ -77,8 +98,6 @@ function Payment() {
         });
         navigate("/orders", { replace: true });
       });
-
-    console.log(clientSecret);
   }
 
   function handleChange(event) {
@@ -108,18 +127,29 @@ function Payment() {
           <div className="payment__title">
             <h3>Delivery Address</h3>
           </div>
-          <div className="payment__address">
-            <p>
-              {user ? (
-                Email()
-              ) : (
-                <span style={{ color: "red" }}>Please Sign in first</span>
-              )}
-            </p>
-            <p>Address</p>
-            <p>City, State, Zip Code</p>
-            <p>Country</p>
-          </div>
+          {address.map((address) => {
+            return (
+              <div className="payment__address">
+                <p>
+                  {user ? (
+                    Email()
+                  ) : (
+                    <span style={{ color: "red" }}>Please Sign in first</span>
+                  )}
+                </p>
+                <p>
+                  {user ? address?.data.street : "Street"},{" "}
+                  {user ? address?.data.street2 : "Street 2"}
+                </p>
+                <p>
+                  {user ? address?.data.city : "City"},{" "}
+                  {user ? address?.data.state : "State"},
+                  {user ? address?.data.zipCode : "Zip Code"}
+                </p>
+                <p>{user ? address?.data.country : "Country"}</p>
+              </div>
+            );
+          })}
         </div>
         {/* Products Section */}
         <div className="payment__section">

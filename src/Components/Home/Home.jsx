@@ -4,11 +4,14 @@ import CarouselComponent from "./Carousel";
 import "./Home.css";
 import Product from "./Product";
 
+
+
 function Home() {
+  
+
   return (
     <div className="home">
       <div className="home__container">
-        
         <CarouselComponent />
         <div className="home__row">
           <Product
