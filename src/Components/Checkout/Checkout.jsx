@@ -29,7 +29,7 @@ function Checkout() {
           {basket.map(({ id, title, price, rating, src }) => (
             <BasketItem
               id={id}
-              key={id}
+              key={Math.random()}
               title={title}
               price={price}
               rating={rating}

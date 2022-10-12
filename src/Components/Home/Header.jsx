@@ -7,16 +7,13 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useStateValue } from "../../StateProvider";
 import { Link } from "react-router-dom";
 import { authentication } from "../../firebase.js";
+import Email from "../Email";
 
 function Header() {
   // eslint-disable-next-line no-unused-vars
   const [{ basket, user }, dispatch] = useStateValue();
 
-  const str = user?.email;
-  const index = str?.indexOf("@");
-  const email = str?.slice(0, index);
-
-  let username = user ? email : "Guest";
+  let username = user ? Email() : "Guest";
 
   function handleAuthentication() {
     if (user) {

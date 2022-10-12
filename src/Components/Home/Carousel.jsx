@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import './Carousel.css'
+import "./Carousel.css";
 
 function CarouselComponent(props) {
   var items = [

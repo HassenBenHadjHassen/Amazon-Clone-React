@@ -7,8 +7,18 @@ import Header from "./Components/Home/Header";
 import Home from "./Components/Home/Home";
 import Checkout from "./Components/Checkout/Checkout";
 import Login from "./Components/Login/Login";
+import Payment from "./Components/Payment/Payment";
+
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { useStateValue } from "./StateProvider";
+
+const promise = loadStripe(
+  "pk_test_51IWmMKEccOkJW4g1pul27HzdOy50fObW16gYEi5fpn8ULn1uUHwerULdk1Pe6k5IGmFZdFZrHPsCK8xXyxJenKw300dhYGQ4Ae"
+);
 
 function App() {
+  const [{ basket, user }, dispatch] = useStateValue();
   return (
     <div className="app">
       <Router>
@@ -16,6 +26,15 @@ function App() {
           <Route path="/" element={[<Header />, <Home />]} />
           <Route path="/checkout" element={[<Header />, <Checkout />]} />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/payment"
+            element={[
+              <Header />,
+              <Elements stripe={promise}>
+                <Payment />
+              </Elements>,
+            ]}
+          />
         </Routes>
       </Router>
     </div>
