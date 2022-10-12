@@ -26,16 +26,22 @@ function Checkout() {
           <h2 className="checkout__title">Your shopping Basket</h2>
           {/* Basket Item */}
           {/*<FlipMove>*/}
-          {basket.map(({ id, title, price, rating, src }) => (
-            <BasketItem
-              id={id}
-              key={Math.random()}
-              title={title}
-              price={price}
-              rating={rating}
-              src={src}
-            />
-          ))}
+          {basket.length > 0 ? (
+            basket.map(({ id, title, price, rating, src }) => (
+              <BasketItem
+                id={id}
+                key={Math.random()}
+                title={title}
+                price={price}
+                rating={rating}
+                src={src}
+              />
+            ))
+          ) : (
+            <h3 style={{ paddingTop: "10px" }}>
+              Your basket is empty, consider adding items.
+            </h3>
+          )}
           {/* </FlipMove> */}
         </div>
       </div>

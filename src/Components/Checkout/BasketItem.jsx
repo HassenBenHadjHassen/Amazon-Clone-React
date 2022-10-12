@@ -5,7 +5,7 @@ import "./BasketItem.css";
 import Rating from "@mui/material/Rating";
 import { useStateValue } from "../../StateProvider";
 
-function BasketItem({ id, title, price, rating, src }) {
+function BasketItem({ id, title, price, rating, src, hideButton }) {
   // eslint-disable-next-line no-unused-vars
   const [{ basket }, dispatch] = useStateValue();
 
@@ -33,7 +33,7 @@ function BasketItem({ id, title, price, rating, src }) {
           readOnly
         />{" "}
         <br />
-        <button onClick={removeFromBasket}>Remove from basket</button>
+        <button hidden={hideButton} onClick={removeFromBasket}>Remove from basket</button>
       </div>
     </div>
   );

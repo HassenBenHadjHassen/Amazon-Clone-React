@@ -11,7 +11,11 @@ const Subtotal = () => {
   const navigate = useNavigate();
 
   function handleCheckout(event) {
-    basket.length > 0 ? navigate("/payment") : navigate("/");
+    if (basket.length > 0) {
+      navigate("/payment");
+    } else {
+      navigate("/");
+    }
   }
 
   return (

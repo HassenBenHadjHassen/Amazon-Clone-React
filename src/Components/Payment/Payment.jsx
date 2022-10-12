@@ -10,6 +10,10 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "../../reducer";
 import axios from "../../axios.js";
+import { db } from "../../firebase";
+
+//Icons
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 function Payment() {
   // eslint-disable-next-line no-unused-vars
@@ -46,6 +50,7 @@ function Payment() {
 
     setProcessing(true);
 
+    // eslint-disable-next-line no-unused-vars
     const payload = await stripe
       .confirmCardPayment(clientSecret, {
         payment_method: {
@@ -53,12 +58,23 @@ function Payment() {
         },
       })
       .then(({ paymentIntent }) => {
+        db.collection("users")
+          .doc(user?.uid)
+          .collection("orders")
+          .doc(paymentIntent.id)
+          .set({
+            email: user?.email,
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
+
         setSucceded(true);
         setError(null);
         setProcessing(false);
         dispatch({
           type: "EMPTY_BASKET",
-        })
+        });
         navigate("/orders", { replace: true });
       });
 
@@ -70,19 +86,16 @@ function Payment() {
     setError(event.error ? event.error.message : "");
   }
 
-  const pageAccessedByReload =
-    (window.performance.navigation &&
-      window.performance.navigation.type === 1) ||
-    window.performance
-      .getEntriesByType("navigation")
-      .map((nav) => nav.type)
-      .includes("reload");
-  pageAccessedByReload && navigate("/");
-
   return (
     <div className="payment">
+      <div className="payment__arrow">
+        <a href="#end">
+          <ArrowDownwardIcon style={{ fontSize: 40 }} />
+        </a>
+      </div>
+
       <div className="payment__container">
-        <h1>
+        <h1 id="start">
           Checkout(
           <Link to="/checkout">
             {basket.length} {basket.length > 1 ? "items" : "item"}
@@ -157,6 +170,7 @@ function Payment() {
                   />
 
                   <button
+                    id="end"
                     disabled={!user || processing || disabled || succeded}
                   >
                     <span>

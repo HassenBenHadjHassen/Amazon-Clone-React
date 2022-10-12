@@ -5,10 +5,7 @@ import "./Login.css";
 //Components
 // eslint-disable-next-line no-unused-vars
 import { authentication, db } from "../../firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+
 import { useStateValue } from "../../StateProvider";
 
 function Login() {
@@ -38,7 +35,7 @@ function Login() {
   const signIn = (event) => {
     event.preventDefault();
 
-    signInWithEmailAndPassword(authentication, email, password)
+    authentication.signInWithEmailAndPassword(email, password)
       .then((auth) => {
         if (auth) {
           navigate("/");
@@ -48,7 +45,7 @@ function Login() {
   };
 
   const register = (event) => {
-    createUserWithEmailAndPassword(authentication, email, password)
+    authentication.createUserWithEmailAndPassword(email, password)
       .then((auth) => {
         console.log(auth);
         if (auth) {
@@ -98,7 +95,7 @@ function Login() {
           By continuing, you agree to Amazon Clone's Conditions of Use and
           Privacy Notice.
         </p>
-        <div class="login__text">
+        <div className="login__text">
           <h5>New to Amazon?</h5>
         </div>
         <button className="login__registerButton" onClick={register}>
