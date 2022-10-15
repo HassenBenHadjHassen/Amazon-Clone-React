@@ -35,7 +35,8 @@ function Login() {
   const signIn = (event) => {
     event.preventDefault();
 
-    authentication.signInWithEmailAndPassword(email, password)
+    authentication
+      .signInWithEmailAndPassword(email, password)
       .then((auth) => {
         if (auth) {
           navigate("/");
@@ -45,7 +46,8 @@ function Login() {
   };
 
   const register = (event) => {
-    authentication.createUserWithEmailAndPassword(email, password)
+    authentication
+      .createUserWithEmailAndPassword(email, password)
       .then((auth) => {
         console.log(auth);
         if (auth) {
@@ -73,6 +75,7 @@ function Login() {
             type="email"
             onChange={(event) => setEmail(event.target.value)}
             value={email}
+            required
           />
 
           <h5>Password</h5>
@@ -80,6 +83,7 @@ function Login() {
             type="password"
             onChange={(event) => setPassword(event.target.value)}
             value={password}
+            required
           />
           <br />
           <button
