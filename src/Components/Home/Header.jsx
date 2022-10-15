@@ -28,7 +28,7 @@ function Header() {
 
   return (
     <div className="headerContainer">
-      {innerWidth > 1028 ? (
+      {innerWidth > 650 ? (
         <div className="header">
           <Link to="/">
             <img

@@ -43,12 +43,12 @@
   text-decoration: none;
 }
 
-
 .payment__details > form {
   max-width: 400px;
 }
 
-.payment__priceContainer > h3, .payment__priceContainer > p {
+.payment__priceContainer > h3,
+.payment__priceContainer > p {
   padding-top: 20px;
 }
 
@@ -68,4 +68,21 @@
   background: #f7ca00;
   border-color: #f2c200;
   box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
+}
+
+@media screen and (max-width: 650px) {
+  .payment__title {
+    flex: 1;
+  }
+
+  .payment__address,
+  .payment__items,
+  .payment__details {
+    flex: 1;
+    margin-top: 10px;
+  }
+
+  .payment__section {
+    flex-direction: column;
+  }
 }

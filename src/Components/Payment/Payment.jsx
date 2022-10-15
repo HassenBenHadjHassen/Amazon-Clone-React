@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
 import "./Payment.css";
 
@@ -63,8 +64,6 @@ function Payment() {
     }
   }, [user]);
 
-  console.log(address);
-
   async function handleSubmit(event) {
     //Do fancy stripe shiiit
     event.preventDefault();
@@ -106,116 +105,239 @@ function Payment() {
   }
 
   return (
-    <div className="payment">
-      <div className="payment__arrow">
-        <a href="#end">
-          <ArrowDownwardIcon style={{ fontSize: 40 }} />
-        </a>
-      </div>
-
-      <div className="payment__container">
-        <h1 id="start">
-          Checkout(
-          <Link to="/checkout">
-            {basket.length} {basket.length > 1 ? "items" : "item"}
-          </Link>
-          )
-        </h1>
-
-        {/* Delivery Section */}
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Delivery Address</h3>
+    <div className="paymentContainer">
+      {innerWidth > 650 ? (
+        <div className="payment">
+          <div className="payment__arrow">
+            <a href="#end">
+              <ArrowDownwardIcon style={{ fontSize: 40 }} />
+            </a>
           </div>
-          {address.map((address) => {
-            return (
-              <div className="payment__address">
-                <p>
-                  {user ? (
-                    Email()
-                  ) : (
-                    <span style={{ color: "red" }}>Please Sign in first</span>
-                  )}
-                </p>
-                <p>
-                  {user ? address?.data.street : "Street"},{" "}
-                  {user ? address?.data.street2 : "Street 2"}
-                </p>
-                <p>
-                  {user ? address?.data.city : "City"},{" "}
-                  {user ? address?.data.state : "State"},
-                  {user ? address?.data.zipCode : "Zip Code"}
-                </p>
-                <p>{user ? address?.data.country : "Country"}</p>
+
+          <div className="payment__container">
+            <h1 id="start">
+              Checkout(
+              <Link to="/checkout">
+                {basket.length} {basket.length > 1 ? "items" : "item"}
+              </Link>
+              )
+            </h1>
+
+            {/* Delivery Section */}
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Delivery Address</h3>
               </div>
-            );
-          })}
-        </div>
-        {/* Products Section */}
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Review item(s) and delivery</h3>
-          </div>
-          <div className="payment__items">
-            {basket.map((item) => (
-              <BasketItem
-                id={item.id}
-                key={Math.random()}
-                title={item.title}
-                price={item.price}
-                src={item.src}
-                rating={item.rating}
-              />
-            ))}
-          </div>
-        </div>
-        {/* Payment Section */}
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Payment Method</h3>
-          </div>
-          <div className="payment__details">
-            {
-              <form onSubmit={handleSubmit}>
-                {user ? (
-                  <CardElement onChange={handleChange} />
-                ) : (
-                  <p style={{ color: "red" }}>
-                    Please Sign in to complete The transaction.
-                  </p>
-                )}
-
-                <div className="payment__priceContainer">
-                  <CurrencyFormat
-                    renderText={(value) => (
-                      <>
-                        <h3>Order total: {value}</h3>
-                      </>
-                    )}
-                    decimalScale={2}
-                    value={getBasketTotal(basket)}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                    prefix={"$"}
+              {address.map((address) => {
+                return (
+                  <div className="payment__address">
+                    <p>
+                      {user ? (
+                        Email()
+                      ) : (
+                        <span style={{ color: "red" }}>
+                          Please Sign in first
+                        </span>
+                      )}
+                    </p>
+                    <p>
+                      {user ? address?.data.street : "Street"},{" "}
+                      {user ? address?.data.street2 : "Street 2"}
+                    </p>
+                    <p>
+                      {user ? address?.data.city : "City"},{" "}
+                      {user ? address?.data.state : "State"},
+                      {user ? address?.data.zipCode : "Zip Code"}
+                    </p>
+                    <p>{user ? address?.data.country : "Country"}</p>
+                  </div>
+                );
+              })}
+            </div>
+            {/* Products Section */}
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Review item(s) and delivery</h3>
+              </div>
+              <div className="payment__items">
+                {basket.map((item) => (
+                  <BasketItem
+                    id={item.id}
+                    key={Math.random()}
+                    title={item.title}
+                    price={item.price}
+                    src={item.src}
+                    rating={item.rating}
                   />
+                ))}
+              </div>
+            </div>
+            {/* Payment Section */}
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Payment Method</h3>
+              </div>
+              <div className="payment__details">
+                {
+                  <form onSubmit={handleSubmit}>
+                    {user ? (
+                      <CardElement onChange={handleChange} />
+                    ) : (
+                      <p style={{ color: "red" }}>
+                        Please Sign in to complete The transaction.
+                      </p>
+                    )}
 
-                  <button
-                    id="end"
-                    disabled={!user || processing || disabled || succeded}
-                  >
-                    <span>
-                      {processing ? <p>Processing</p> : "Complete Transaction"}
-                    </span>
-                  </button>
-                </div>
+                    <div className="payment__priceContainer">
+                      <CurrencyFormat
+                        renderText={(value) => (
+                          <>
+                            <h3>Order total: {value}</h3>
+                          </>
+                        )}
+                        decimalScale={2}
+                        value={getBasketTotal(basket)}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"$"}
+                      />
 
-                {/* Errors */}
-                {error && <div>{error}</div>}
-              </form>
-            }
+                      <button
+                        id="end"
+                        disabled={!user || processing || disabled || succeded}
+                      >
+                        <span>
+                          {processing ? (
+                            <p>Processing</p>
+                          ) : (
+                            "Complete Transaction"
+                          )}
+                        </span>
+                      </button>
+                    </div>
+
+                    {/* Errors */}
+                    {error && <div>{error}</div>}
+                  </form>
+                }
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="payment">
+          <div className="payment__container">
+            <h1 style={{ marginTop: "10px" }} id="start">
+              Checkout(
+              <Link to="/checkout">
+                {basket.length} {basket.length > 1 ? "items" : "item"}
+              </Link>
+              )
+            </h1>
+
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Delivery Address</h3>
+              </div>
+              {address.map((address) => {
+                return (
+                  <div className="payment__address">
+                    <p>
+                      {user ? (
+                        Email()
+                      ) : (
+                        <span style={{ color: "red" }}>
+                          Please Sign in first
+                        </span>
+                      )}
+                    </p>
+                    <p>
+                      {user ? address?.data.street : "Street"},{" "}
+                      {user ? address?.data.street2 : "Street 2"}
+                    </p>
+                    <p>
+                      {user ? address?.data.city : "City"},{" "}
+                      {user ? address?.data.state : "State"},
+                      {user ? address?.data.zipCode : "Zip Code"}
+                    </p>
+                    <p>{user ? address?.data.country : "Country"}</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Payment Section */}
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Payment Method</h3>
+              </div>
+              <div className="payment__details">
+                {
+                  <form onSubmit={handleSubmit}>
+                    {user ? (
+                      <CardElement onChange={handleChange} />
+                    ) : (
+                      <p style={{ color: "red" }}>
+                        Please Sign in to complete The transaction.
+                      </p>
+                    )}
+
+                    <div className="payment__priceContainer">
+                      <CurrencyFormat
+                        renderText={(value) => (
+                          <>
+                            <h3>Order total: {value}</h3>
+                          </>
+                        )}
+                        decimalScale={2}
+                        value={getBasketTotal(basket)}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"$"}
+                      />
+
+                      <button
+                        id="end"
+                        disabled={!user || processing || disabled || succeded}
+                      >
+                        <span>
+                          {processing ? (
+                            <p>Processing</p>
+                          ) : (
+                            "Complete Transaction"
+                          )}
+                        </span>
+                      </button>
+                    </div>
+
+                    {/* Errors */}
+                    {error && <div>{error}</div>}
+                  </form>
+                }
+              </div>
+            </div>
+
+            {/* Products Section */}
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Review item(s) and delivery</h3>
+              </div>
+              <div className="payment__items">
+                {basket.map((item) => (
+                  <BasketItem
+                    id={item.id}
+                    key={Math.random()}
+                    title={item.title}
+                    price={item.price}
+                    src={item.src}
+                    rating={item.rating}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

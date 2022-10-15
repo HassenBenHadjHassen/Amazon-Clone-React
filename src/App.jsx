@@ -10,7 +10,6 @@ import Login from "./Components/Login/Login";
 import Payment from "./Components/Payment/Payment";
 import Orders from "./Components/Orders/Orders";
 import Address from "./Components/Address/Address";
-import Footer from "./Components/Footer/Footer";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -24,7 +23,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/" element={[<Header />, <Home />, <Footer />]} />
+          <Route path="/" element={[<Header />, <Home />]} />
           <Route path="/checkout" element={[<Header />, <Checkout />]} />
           <Route path="/login" element={<Login />} />
           <Route path="/address" element={[<Address />]} />

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { forwardRef } from "react";
 import "./Product.css";
 import { useStateValue } from "../../StateProvider.js";
@@ -43,20 +44,20 @@ const Product = forwardRef(({ id, title, price, rating, src }, ref) => {
   return (
     <div className="product" ref={ref}>
       <div className="product__info">
-        <p>{title}</p>
+        <p className="product__title">{title}</p>
+      </div>
+
+      <div className="product__rating">
         <p className="product__price">
           <small>$</small>
           <strong>{price}</strong>
         </p>
-
-        <div className="product__rating">
-          <Rating
-            name="half-rating-read"
-            defaultValue={rating}
-            precision={0.25}
-            readOnly
-          />
-        </div>
+        <Rating
+          name="half-rating-read"
+          defaultValue={rating}
+          precision={0.25}
+          readOnly
+        />
       </div>
 
       <img src={src} alt="" />

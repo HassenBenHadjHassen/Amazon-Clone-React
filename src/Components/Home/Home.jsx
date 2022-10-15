@@ -9,7 +9,7 @@ function Home() {
   return (
     <div className="home">
       <div className="home__container">
-        {innerWidth < 1028 ? (
+        {innerWidth < 650 ? (
           <div>
             <div className="home__row">
               <Product

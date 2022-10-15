@@ -71,7 +71,7 @@
   margin-right: 10px;
 }
 
-@media screen and (max-width: 1028px) {
+@media screen and (max-width: 650px) {
   .header {
     flex-direction: column;
     padding-bottom: 20px;
@@ -107,6 +107,9 @@
     justify-content: space-between;
     width: 30px;
     height: 21px;
+
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
   }
 
   .header__toggleButton > .header__bar {
@@ -138,12 +141,10 @@
   }
 
   .header__optionLineOne {
-    font-size: 1rem;
     color: #fff;
   }
 
   .header__optionLineTwo {
-    font-size: 1.25rem;
     color: #fff;
   }
 }
