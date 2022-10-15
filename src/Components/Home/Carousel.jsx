@@ -2,20 +2,21 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 import "./Carousel.css";
 
-function CarouselComponent(props) {
+import Image1 from "../../images/image1.jpg";
+import Image2 from "../../images/image2.jpg";
+
+function CarouselComponent() {
   var items = [
     {
-      image:
-        "https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg",
+      image: Image1,
     },
     {
-      image:
-        "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61DUO0NqyyL._SX3000_.jpg",
+      image: Image2,
     },
   ];
 
   return (
-    <Carousel autoPlay indicators={false}>
+    <Carousel autoPlay indicators={false} swipe={false}>
       {items.map((item, i) => (
         <Item key={i} item={item} />
       ))}
@@ -23,8 +24,8 @@ function CarouselComponent(props) {
   );
 }
 
-function Item(props) {
-  return <img className="carousel__image" src={props.item.image} alt="" />;
+function Item({ item }) {
+  return <img className="carousel__image" src={item.image} alt="" />;
 }
 
 export default CarouselComponent;

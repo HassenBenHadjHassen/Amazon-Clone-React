@@ -372,7 +372,9 @@ function Address() {
             </select>
           </div>
 
-          <button className="address__submitButton" type="submit">Set Address</button>
+          <button className="address__submitButton" type="submit">
+            Set Address
+          </button>
         </form>
       </div>
     </div>

@@ -11,7 +11,6 @@ function Home() {
       <div className="home__container">
         {innerWidth < 1028 ? (
           <div>
-            <CarouselComponent />
             <div className="home__row">
               <Product
                 id={uuid()}
