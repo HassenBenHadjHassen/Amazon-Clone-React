@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./Orders.css";
@@ -31,7 +32,8 @@ function Orders() {
   }, [user]);
 
   return (
-    <div className="orders">
+    <div className={innerWidth > 650 ? "orders" : "orders__phone"}>
+      <div style={{marginTop: "25px"}}></div>
       <h1>Your Orders</h1>
       {user ? (
         <div className="orders__order">

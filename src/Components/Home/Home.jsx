@@ -11,6 +11,7 @@ function Home() {
       <div className="home__container">
         {innerWidth < 650 ? (
           <div>
+            <div style={{ marginTop: "25px" }}></div>
             <div className="home__row">
               <Product
                 id={uuid()}

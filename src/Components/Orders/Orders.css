@@ -1,8 +1,14 @@
 .orders {
-    padding: 20px 80px;
+  padding: 20px 80px;
 }
 
-.orders > h1 {
-    margin: 30px 0;
-    text-align: center;
+.orders > h1,
+.orders__phone > h1 {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.orders__warning {
+  color: red;
+  text-align: center;
 }
